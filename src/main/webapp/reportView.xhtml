@@ -49,15 +49,23 @@
         <div class="container">
             <div class="card">
                 <h:form>
+   		           <div class="flex justify-content-end">
+		               <p:commandButton value="Return to Home" ajax="false" action="#{reportViewBean.redirectToListPage()}" />
+		           </div>
 		            <div class="ui-fluid">
 		               <div class="field">
-		                   <h:outputText for="title-input" value="タイトル (Title)" />
+		                   <h:outputText for="title-input" value="タイトル (Title):" style="font-weight: bold"/>
+		                </div>
+						<div class="field">	               
 		                   <h:outputText for="title-input" value="#{reportViewBean.title}" />
 		               </div>
 		               <div class="field">
-		                   <h:outputText for="detail-input" value="詳細 (Details)" />
-		                   <h:outputText for="detail-input" value="#{reportViewBean.detail}" />
+		                   <h:outputText for="detail-input" value="詳細 (Details):" style="font-weight: bold"/>
 		               </div>
+   		               <div class="field">	               
+		                   <h:outputText for="detail-input" value="#{reportViewBean.detail}" />
+   		               </div>
+		                   
 		           </div>
                 </h:form>
             </div>

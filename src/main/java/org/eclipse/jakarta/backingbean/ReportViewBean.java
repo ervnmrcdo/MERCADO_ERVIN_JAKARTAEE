@@ -26,4 +26,8 @@ public class ReportViewBean {
     	report = newReport;
     	return "/reportView.xhtml?faces-redirect=true";
     }
+    
+    public String redirectToListPage() {
+    	return "/reportList.xhtml?faces-redirect=true";
+    }
 }
