@@ -1,0 +1,99 @@
+package org.eclipse.jakarta.infrastructure.repository;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.eclipse.jakarta.dto.ReportDto;
+import org.eclipse.jakarta.infrastracture.repository.ReportRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class ReportRepositoryTest {
+
+	private ReportRepository reportRepository;
+	private ReportDto testReport1;
+	private ReportDto testReport2;
+	
+	@BeforeEach
+	void setup () {
+		reportRepository = new ReportRepository();
+		
+		testReport1 = new ReportDto();
+		testReport1.setTitle("Test Report 1");
+		testReport1.setDetail("This is the first report.");
+		
+		testReport2 = new ReportDto();
+		testReport2.setTitle("Test Report 2");
+		testReport2.setDetail("This is the second report.");		
+	}
+	
+	@AfterEach
+	void teardown () {
+		reportRepository = null;
+		testReport1 = null;
+		testReport2 = null;
+	}
+	
+	/*
+	 * 
+	 */
+	@Test
+	void testCreate() {
+		reportRepository.create(testReport1);
+		reportRepository.create(testReport2);
+		
+		assertNotNull(reportRepository, "Report repository should not be null after adding reports");
+		assertEquals(2, reportRepository.findAll().size());
+	}
+	
+	/*
+	 * 
+	 */
+	@Test
+	void testView() {
+		reportRepository.create(testReport1);
+		reportRepository.create(testReport2);
+		
+		assertAll(
+				() -> assertEquals(1, testReport1.getId()),
+				() -> assertEquals(2, testReport2.getId()),
+				() -> assertNull(reportRepository.findReport(3))
+				
+		);
+	}
+
+	/*
+	 * 
+	 */
+	@Test
+	void testUpdate() {
+		reportRepository.create(testReport1);
+		reportRepository.create(testReport2);
+		
+		reportRepository.update(1, "Report 1 New Title", "Report 1 New Detail");
+		reportRepository.update(2, "hatdog", "fishstick");
+		
+		assertEquals(testReport1.getTitle(), "Report 1 New Title");
+		assertEquals(testReport1.getDetail(), "Report 1 New Detail");
+		assertEquals(testReport2.getTitle(), "hatdog");
+		assertEquals(testReport2.getDetail(), "fishstick");
+
+	}
+	
+	/*
+	 * Tests for deletion of report in report repository
+	 */
+	@Test
+	void testDelete() {
+		reportRepository.create(testReport1);
+		reportRepository.create(testReport2);
+		
+		assertEquals(2, reportRepository.findAll().size());
+		reportRepository.delete(2);
+		assertFalse(reportRepository.findAll().contains(testReport2));
+		assertTrue(reportRepository.findAll().contains(testReport1));
+		assertEquals(1, reportRepository.findAll().size());
+		reportRepository.delete(1);
+		assertEquals(0, reportRepository.findAll().size());
+	}
+}

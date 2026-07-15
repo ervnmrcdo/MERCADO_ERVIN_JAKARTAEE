@@ -14,6 +14,9 @@ import jakarta.validation.constraints.NotBlank;
 public class ReportViewBean {
     private static ReportDto report;
     
+    @Inject
+    private ReportRepository reportRepository;
+    
     public String getTitle() {
     	return report.getTitle();
     }
@@ -22,9 +25,9 @@ public class ReportViewBean {
     	return report.getDetail();
     }
     
-    public String redirectToViewPage(ReportDto newReport) {
-    	report = newReport;
-    	return "/reportView.xhtml?faces-redirect=true";
+    public String redirectToViewPage(int id) {
+    	report = reportRepository.findReport(id);
+    	return (report != null) ?  "/reportView.xhtml?faces-redirect=true" : "reportList.xhtml?faces-redirect=true";
     }
     
     public String redirectToListPage() {

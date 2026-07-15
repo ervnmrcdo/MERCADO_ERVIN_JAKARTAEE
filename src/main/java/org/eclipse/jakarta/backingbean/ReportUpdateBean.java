@@ -35,20 +35,26 @@ public class ReportUpdateBean {
         newDetail = detail;
     }
     
-    public String update() {
-    	report.setTitle(newTitle);
-    	report.setDetail(newDetail);
+    public String update(int id) {
+//    	report.setTitle(newTitle);
+//    	report.setDetail(newDetail);
+    	reportRepository.update(id, newTitle, newDetail);
     	
     	newTitle = "";
     	newDetail = "";
     	return "/reportList.xhtml?faces-redirect=true";
     }
     
-    public String redirectToUpdatePage(ReportDto rep) {
-    	report = rep;
-    	newTitle = report.getTitle();
-    	newDetail = report.getDetail();
-    	return "/reportUpdate.xhtml?faces-redirect=true";
+    public String redirectToUpdatePage(int id) {
+    	report = reportRepository.findReport(id);
+    	if (report != null) {
+    		newTitle = report.getTitle();
+    		newDetail = report.getDetail();
+    		return "/reportUpdate.xhtml?faces-redirect=true";
+    	} else {
+    		return "/reportList.xhtml?faces-redirect=true";
+
+    	}
     }
 	
 }

@@ -22,7 +22,8 @@ public class ReportNewBean{
         newReport.setTitle(title);
         newReport.setDetail(detail);
         reportRepository.create(newReport);
-
+        
+        
         return "/reportList.xhtml?faces-redirect=true";
     }
 

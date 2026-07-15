@@ -15,10 +15,9 @@ public class ReportDeleteBean {
     @Inject
     private ReportRepository reportRepository;
     
-    public String delete(ReportDto report) {
+    public String delete(int id) {
     	//  the actual report object gets passed
-    	reportRepository.delete(report);
-
+    	reportRepository.delete(id);
         return "/reportList.xhtml?faces-redirect=true";
     }
 }

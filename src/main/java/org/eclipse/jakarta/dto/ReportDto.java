@@ -1,13 +1,15 @@
 package org.eclipse.jakarta.dto;
 
 public class ReportDto {
-    private String title;
+    private int id;
+	private String title;
     private String detail;
 
     public ReportDto() {}
 
-    public ReportDto(String title, String detail) {
-        this.title = title;
+    public ReportDto(int id, String title, String detail) {
+        this.id = id;
+    	this.title = title;
         this.detail = detail;
     }
 
@@ -26,4 +28,13 @@ public class ReportDto {
     public void setDetail(String detail) {
         this.detail = detail;
     }
+    
+    public int getId() {
+    	return id;
+    }
+    
+    public void setId (int id) {
+    	this.id = id;
+    }
+
 }
