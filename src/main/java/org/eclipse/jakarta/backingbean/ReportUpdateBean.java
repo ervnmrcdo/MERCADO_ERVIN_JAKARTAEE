@@ -14,7 +14,7 @@ public class ReportUpdateBean {
     @NotBlank(message = "You cannot leave the title blank.")
     private static String newTitle;
     private static String newDetail;
-    private static ReportDto report;
+    private static int reportID;
     
     @Inject
     private ReportRepository reportRepository;
@@ -35,10 +35,8 @@ public class ReportUpdateBean {
         newDetail = detail;
     }
     
-    public String update(int id) {
-//    	report.setTitle(newTitle);
-//    	report.setDetail(newDetail);
-    	reportRepository.update(id, newTitle, newDetail);
+    public String update() {
+    	reportRepository.update(reportID, newTitle, newDetail);
     	
     	newTitle = "";
     	newDetail = "";
@@ -46,8 +44,9 @@ public class ReportUpdateBean {
     }
     
     public String redirectToUpdatePage(int id) {
-    	report = reportRepository.findReport(id);
+    	ReportDto report = reportRepository.findReport(id);
     	if (report != null) {
+    		reportID = report.getId();
     		newTitle = report.getTitle();
     		newDetail = report.getDetail();
     		return "/reportUpdate.xhtml?faces-redirect=true";
