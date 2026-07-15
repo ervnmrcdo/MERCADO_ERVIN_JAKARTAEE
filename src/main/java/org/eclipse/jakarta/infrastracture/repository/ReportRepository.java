@@ -29,17 +29,20 @@ public class ReportRepository {
         reports.add(report);
     }
     
-    public void delete(int id) {
+    public boolean delete(int id) {
     	ReportDto report = findReport(id);
-    	if (report != null) reports.remove(report);
+    	if (report != null) {reports.remove(report);  return true;}
+    	return false;
     }
     
-    public void update(int id, String newTitle, String newDetail) {
+    public boolean update(int id, String newTitle, String newDetail) {
     	ReportDto report = findReport(id);
     	if (report != null) {
     		report.setTitle(newTitle);
     		report.setDetail(newDetail);
+    		return true;
     	}	
+    	return false;
     }
     
 }
